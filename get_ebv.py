@@ -1,4 +1,15 @@
 #!/usr/bin/env python
+'''
+Galactic Foregound Reddening for given coordinates
+\t Usage:
+\t \t get_ebv.py <options>
+
+\t Example:
+\t \t get_ebv -c 41.17900 -26.15310
+
+\t Options:
+\t \t -c "ra_j2000" "dec_j2000" 
+'''
 
 import requests
 from lxml import html
@@ -30,4 +41,5 @@ def getebv(coords):
 	return schlafly_corr, schlegel_corr
 
 if __name__ == "__main__":
+	print __doc__
 	getebv(coords)
