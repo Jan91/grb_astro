@@ -119,10 +119,7 @@ class Coordinates:
 		schlafly_corr = float(split_schlafly[0])
 		schlegel_corr = float(split_schlegel[0])
 
-		print "Schlafly & Finkbeiner 2011; Mean Value:", schlafly_corr, "(mag)"
-		print "Schlegel et al. 1998; Mean Value:", schlegel_corr, "(mag)"
-
-		return schlafly_corr, schlegel_corr
+		return schlafly_corr
 
 	def getnh(self):
 		ra = str(self.ra)
@@ -138,8 +135,18 @@ class Coordinates:
 		nh_list = tree.xpath('//b/text()')
 		nh_string = nh_list[4].split()
 		nh = float(nh_string[6])
-	
+
 		return nh
+
+
+
+for i in np.arange(201.0, 361.0, 1.0):
+	for j in np.arange(-90.0, 0.0, 1.0):
+		j2 = "+" + str(j)
+		i = str(i)
+		coords = Coordinates(i, j2)
+		ebv = coords.getebv()
+		print i, j, ebv
 
 
 

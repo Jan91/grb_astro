@@ -140,11 +140,11 @@ class Coordinates:
 
 
 
-for i in np.arange(202.0, 361.0, 1.0):
-	for j in np.arange(0.0, 91.0, 1.0):
-		j = "+" + str(j)
+for i in np.arange(102.0, 201.0, 1.0):
+	for j in np.arange(-90.0, 0.0, 1.0):
+		j2 = "+" + str(j)
 		i = str(i)
-		coords = Coordinates(i, j)
+		coords = Coordinates(i, j2)
 		ebv = coords.getebv()
 		print i, j, ebv
 
