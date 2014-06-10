@@ -140,7 +140,7 @@ class Coordinates:
 
 
 
-for i in np.arange(102.0, 201.0, 1.0):
+for i in np.arange(2.0, 21.0, 1.0):
 	for j in np.arange(-90.0, 0.0, 1.0):
 		j2 = "+" + str(j)
 		i = str(i)
