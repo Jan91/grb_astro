@@ -89,6 +89,50 @@ class Coordinates:
 
 		return (x, y)
 
+
+	def equatorial2galatic(self):
+		'''
+		Convert equatorial to galatic Coordinates
+
+		still not sure if i do this the right way
+		'''
+		ra = math.radians(float(self.ra))
+		dec = math.radians(float(self.dec))
+
+
+		alpha_G = math.radians(float(192.85))
+		delta_G = math.radians(float(27.13))
+
+		#alpha_G = math.radians(float(266.4))
+		#delta_G = math.radians(float(-28.94))
+
+		b = math.degrees(asin(cos(dec) * cos(delta_G) * cos(ra-alpha_G)) + (sin(dec) * sin(delta_G)))
+		l = 122.9 - math.degrees(asin(cos(dec)*sin(ra-alpha_G)/cos(math.radians(b))))
+		
+		return l, b
+		#l2 = 303 - math.degrees(math.atan(sin(alpha_G-ra)/( (cos(alpha_G-ra)*sin(delta_G)) - (tan(dec)*cos(delta_G)) ) ))
+		#b2 = math.degrees(math.asin( (sin(dec)*sin(delta_G)) + (cos(dec)*cos(delta_G)*cos(alpha_G-ra)) ))
+		 
+		#b3 = math.degrees(math.asin(cos(dec)*cos(delta_G)*cos(ra-alpha_G)+(sin(dec)*sin(delta_G))))
+
+		#x = sin(dec)-(sin(b3)*sin(delta_G))
+		#y = cos(dec)*cos(delta_G)*sin(ra-alpha_G)
+		#l3 = 0
+		#if (y>0) and (x>0):
+		#	l3 += math.degrees(math.atan(x/y))
+		#elif (y>0) and (x<0):
+		#	l3 += math.degrees(math.atan(x/y))
+		#elif (y<0) and (x<0):
+		#	l3 += math.degrees(math.atan(x/y)) - 180
+		#elif (y<0) and (x>0):
+		#	l3 += math.degrees(math.atan(x/y)) - 380
+		#else:
+		#	l3 += 0
+
+		#return l3, b3
+
+
+
 	def distto(self, ra2, dec2):
 		ra = radians(float(self.ra))
 		dec = radians(float(self.dec))
@@ -106,7 +150,7 @@ class Coordinates:
 	def getebv(self):
 		ra = str(self.ra)
 		dec = str(self.dec)
-		url = "http://irsa.ipac.caltech.edu/cgi-bin/DUST/nph-dust?locstr=" + ra + dec
+		url = "http://irsa.ipac.caltech.edu/cgi-bin/DUST/nph-dust?locstr=" + ra + "+" + dec
 		page = requests.get(url)
 		tree = html.fromstring(page.text)
 
@@ -140,6 +184,52 @@ class Coordinates:
 		nh = float(nh_string[6])
 	
 		return nh
+
+
+data = open("nh_map/huge_nh_data.txt", "r")
+grbs = open("nh_map/grb_data2010.txt", "r")
+
+l, b , nh = [], [], []
+grb_l, grb_b, grb_nh, grb_c = [], [], [], []
+
+for line in data:
+	s = line.split()
+	coords = Coordinates(float(s[0]), float(s[1]))
+	ll, bb = coords.equatorial2galatic()
+	l.append(float(ll))
+	b.append(float(bb))
+	nh.append(float(s[2]))
+data.close()
+
+for line in grbs:
+	s = line.split()
+	coords = Coordinates(float(s[9]), float(s[10]))
+	ll, bb = coords.equatorial2galatic()
+	grb_l.append(float(ll))
+	grb_b.append(float(bb))
+	grb_nh.append(float(s[11]))
+	grb_c.append(str(s[12]))
+grbs.close()
+
+
+
+fig = figure(figsize=(18,10))
+ax1 = fig.add_axes([0.1,0.1,0.8,0.8])
+
+sc = ax1.scatter(l, b, c=nh, s = 6, cmap="PuBu", marker = "o", edgecolor="none", vmax=0.48e22)
+grb_sc = ax1.scatter(grb_l, grb_b, c=grb_c, s = 30, marker = "o", edgecolor="none")
+
+
+
+plt.show()
+#fig.savefig("lbtest.jpeg", format = "jpeg")
+
+
+
+
+
+
+
 
 
 

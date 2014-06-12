@@ -89,6 +89,28 @@ class Coordinates:
 
 		return (x, y)
 
+
+	def equatorial2galatic(self):
+		'''
+		Convert equatorial to galatic Coordinates
+
+		still not sure if i do this the right way
+		'''
+		ra = math.radians(float(self.ra))
+		dec = math.radians(float(self.dec))
+
+
+		alpha_G = math.radians(float(192.25))
+		delta_G = math.radians(float(27.4))
+
+		b = math.degrees(asin(cos(dec) * cos(delta_G) * cos(ra-alpha_G)) + (sin(dec) * sin(delta_G)))
+
+		l = 122.9331403 - math.degrees(asin(cos(dec)*sin(ra-alpha_G)/cos(math.radians(b))))
+
+		return l, b
+
+
+
 	def distto(self, ra2, dec2):
 		ra = radians(float(self.ra))
 		dec = radians(float(self.dec))
@@ -119,7 +141,10 @@ class Coordinates:
 		schlafly_corr = float(split_schlafly[0])
 		schlegel_corr = float(split_schlegel[0])
 
-		return schlafly_corr
+		print "Schlafly & Finkbeiner 2011; Mean Value:", schlafly_corr, "(mag)"
+		print "Schlegel et al. 1998; Mean Value:", schlegel_corr, "(mag)"
+
+		return schlafly_corr, schlegel_corr
 
 	def getnh(self):
 		ra = str(self.ra)
@@ -135,18 +160,22 @@ class Coordinates:
 		nh_list = tree.xpath('//b/text()')
 		nh_string = nh_list[4].split()
 		nh = float(nh_string[6])
-
+	
 		return nh
 
 
+for i in np.arange(124.0, 125.0, 1.0):
+	for j in np.arange(76.0, 91.0, 1.0):
+		coords = Coordinates(i, j)
+		nh = coords.getnh()
+		print i, j, nh
 
-for i in np.arange(4.0, 101.0, 1.0):
-	for j in np.arange(-90.0, 0.0, 1.0):
-		j2 = "+" + str(j)
-		i = str(i)
-		coords = Coordinates(i, j2)
-		ebv = coords.getebv()
-		print i, j, ebv
+
+
+
+
+
+
 
 
 

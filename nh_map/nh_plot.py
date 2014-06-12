@@ -26,16 +26,24 @@ for line in data:
 	zs.append(float(s[2]))
 
 
-grbs, grb_ra, grb_dec, grb_nh = [], [], [], []
+grbs, grb_ra, grb_dec, grb_nh, grb_col = [], [], [], [], []
 
 grb_data_file = open("grb_data2010.txt", "r")
 for line in grb_data_file:
 		s = line.split()
-		if "2009" not in line:
-			grbs.append(s[3])
-			grb_ra.append(float(s[9]))
-			grb_dec.append(float(s[10]))
-			grb_nh.append(float(s[11]))
+		grbs.append(s[3])
+		grb_ra.append(float(s[9]))
+		grb_dec.append(float(s[10]))
+		grb_nh.append(float(s[11]))
+		if s[12] == "green":
+			grb_col.append("#74c476")
+		elif s[12] == "red":
+			grb_col.append("#d7301f")
+		elif s[12] == "yellow":
+			grb_col.append("#df65b0")
+		elif s[12] == "blue":
+			grb_col.append("#08306b")
+
 grb_data_file.close()
 
 
@@ -47,12 +55,14 @@ ax1.set_ylabel(r'$\rm{Declination\, (J2000)}$', fontsize=18)
 ax1.xaxis.set_ticks(np.arange(0, 361, 60))
 ax1.yaxis.set_ticks(np.arange(-80, 81, 20))
 
-sc = ax1.scatter(xs, ys, c=zs, s = 20, cmap="Greys", marker = "o", edgecolor="none", vmax = 0.30e22)
+sc = ax1.scatter(xs, ys, c=zs, s = 20, cmap="PuBu", marker = "o", edgecolor="none", vmax = 0.30e22)
 cb = plt.colorbar(sc, pad=0.01, ticks=[0.5e21, 1.0e21, 1.5e21, 2.0e21, 2.5e21, 3.0e21])
 cb.ax.set_yticklabels(["0.5", "1.0", "1.5", "2.0", "2.5", ">3"])
 cb.set_label(r'$\rm{N_H\,10^{21}\,(cm^{-2})}$', fontsize=18)
 
-grbs_plot = ax1.scatter(grb_ra, grb_dec, facecolors='none', edgecolors='red', s = 40)
+#grbs_plot = ax1.scatter(grb_ra, grb_dec, c=grb_col, facecolors='none', edgecolors='red', s = 40)
+#grbs_plot = ax1.scatter(grb_ra, grb_dec, c=grb_col, s = 40)
+grbs_plot = ax1.scatter(grb_ra, grb_dec, c=grb_nh, s = 60, cmap="PuBu", edgecolor=grb_col, vmax = 0.30e22, marker = "o")
 
 
 fig.savefig("nh_map.pdf", format = "pdf")
