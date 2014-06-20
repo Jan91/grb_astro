@@ -29,7 +29,10 @@ resultfile = open(args.file, "r")
 for line in resultfile:
 	s = line.split()
 	if "0.98" in line:
-		if (math.fabs(float(s[2]) - float(s[4]))) < args.difference:
-			print line
+		if s[2] != "INDEF":
+			if s[4] != "INDEF":  
+				if (math.fabs(float(s[2]) - float(s[4]))) < args.difference:
+					print line
+
 
 resultfile.close()
