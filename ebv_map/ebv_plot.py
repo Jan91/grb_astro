@@ -29,7 +29,7 @@ data.close()
 
 grbs, grb_ra, grb_dec, grb_ebv, grb_col = [], [], [], [], []
 
-grb_data_file = open("grb_data2010.txt", "r")
+grb_data_file = open("grb_data2007.txt", "r")
 for line in grb_data_file:
 		s = line.split()
 		grbs.append(s[3])
