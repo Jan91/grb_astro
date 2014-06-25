@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument("-red", "--red", dest="red", default="smc")
 parser.add_argument("-zmin", "--zmin", dest="zmin", default=0.0, type=float)
-parser.add_argument("-zmax", "--zmax", dest="zmas", default=4.0, type=float)
+parser.add_argument("-zmax", "--zmax", dest="zmax", default=4.0, type=float)
 parser.add_argument("-avmax", "--avmax", dest="avmax", default=0.5, type=float)
 parser.add_argument("-ebv", "--ebv", dest="ebv", default=0.00, type=float)
 args = parser.parse_args()
@@ -85,6 +85,7 @@ for filt in filter_files:
 
 
 for filt in range(1, len(t), 1):
+	burst = "012000"+str(filt)
 	try:
 		line = "".join(("grb_z.py -g ", str(g[filt]), 
 		" -r ", str(r[filt]),
@@ -94,10 +95,11 @@ for filt in range(1, len(t), 1):
 		" -h ", str(H[filt]),
 		" -k ", str(K[filt]),
 		" -zmin ", str(args.zmin),
-		" -zmax ", str(args.zmag),
-		" -avmax ", str(args.red),
-		" -ebv ", str(args.red),
-		" -red ", args.red))
+		" -zmax ", str(args.zmax),
+		" -avmax ", str(args.avmax),
+		" -ebv ", str(args.ebv),
+		" -red ", args.red,
+		" -burst ", burst))
 		seds.write(line+"\n")
 	except IndexError:
 		print "line", filt, "has missing magnitudes"
