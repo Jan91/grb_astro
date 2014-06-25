@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser()
 parser.add_argument("-red", "--red", dest="red", default="smc")
 parser.add_argument("-zmin", "--zmin", dest="zmin", default=0.0, type=float)
-parser.add_argument("-zmax", "--zmax", dest="zmax", default=4.0, type=float)
+parser.add_argument("-zmax", "--zmax", dest="zmax", default=12.0, type=float)
 parser.add_argument("-avmax", "--avmax", dest="avmax", default=0.5, type=float)
 parser.add_argument("-ebv", "--ebv", dest="ebv", default=0.00, type=float)
 args = parser.parse_args()
@@ -85,12 +85,16 @@ for filt in filter_files:
 
 
 for filt in range(1, len(t), 1):
-	burst = "012000"+str(filt)
+	burst = ""
+	if filt < 10:
+		burst += "012000"+str(filt)
+	else:
+		burst += "01200"+str(filt)
 	try:
-		line = "".join(("grb_z.py -g ", str(g[filt]), str(gerr[filt]), 
+		line = "".join(("grb_z.py -g ", str(g[filt])," ", str(gerr[filt]), 
 		" -r ", str(r[filt])," ",str(rerr[filt]),
 		" -i ", str(i[filt])," ",str(ierr[filt]),
-		" -z ", str(g[filt])," ",str(zerr[filt]),
+		" -z ", str(z[filt])," ",str(zerr[filt]),
 		" -j ", str(J[filt])," ",str(Jerr[filt]),
 		" -h ", str(H[filt])," ",str(Herr[filt]),
 		" -k ", str(K[filt])," ",str(Kerr[filt]),
