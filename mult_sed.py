@@ -74,10 +74,14 @@ for filt in filter_files:
 		f.close()
 
 
-for i in range(1, len(t), 1):
-	line = str()
-	line.join("grb_z.py -g")
-	line.join(str(g[1]))
+for filt in range(1, len(t), 1):
+	line = "".join(("grb_z.py -g ", str(g[filt]), 
+	" -r ", str(r[filt]),
+	" -i ", str(i[filt]),
+	" -z ", str(g[filt]),
+	" -j ", str(J[filt]),
+	" -h ", str(H[filt]),
+	" -k ", str(K[filt])))
 	seds.write(line)
 
 
