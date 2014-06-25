@@ -2,7 +2,6 @@
 
 seds = open("create_seds.sh", "w")
 
-
 filter_files = ["GRB_g_relativeLC.txt",
 "GRB_r_relativeLC.txt",
 "GRB_i_relativeLC.txt",
@@ -75,14 +74,15 @@ for filt in filter_files:
 
 
 for filt in range(1, len(t), 1):
-	line = "".join(("grb_z.py -g ", str(g[filt]), 
-	" -r ", str(r[filt]),
-	" -i ", str(i[filt]),
-	" -z ", str(g[filt]),
-	" -j ", str(J[filt]),
-	" -h ", str(H[filt]),
-	" -k ", str(K[filt])))
-	seds.write(line)
+	try:
+		line = "".join(("grb_z.py -g ", str(g[filt]), 
+		" -r ", str(r[filt]),
+		" -i ", str(i[filt]),
+		" -z ", str(g[filt]),
+		" -j ", str(J[filt]),
+		" -h ", str(H[filt]),
+		" -k ", str(K[filt])))
+		seds.write(line)
 
 
 
