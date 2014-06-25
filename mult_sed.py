@@ -88,12 +88,12 @@ for filt in range(1, len(t), 1):
 	burst = "012000"+str(filt)
 	try:
 		line = "".join(("grb_z.py -g ", str(g[filt]), str(gerr[filt]), 
-		" -r ", str(r[filt]), str(rerr[filt]),
-		" -i ", str(i[filt]), str(ierr[filt]),
-		" -z ", str(g[filt]), str(zerr[filt]),
-		" -j ", str(J[filt]), str(Jerr[filt]),
-		" -h ", str(H[filt]), str(Herr[filt]),
-		" -k ", str(K[filt]), str(Kerr[filt]),
+		" -r ", str(r[filt])," ",str(rerr[filt]),
+		" -i ", str(i[filt])," ",str(ierr[filt]),
+		" -z ", str(g[filt])," ",str(zerr[filt]),
+		" -j ", str(J[filt])," ",str(Jerr[filt]),
+		" -h ", str(H[filt])," ",str(Herr[filt]),
+		" -k ", str(K[filt])," ",str(Kerr[filt]),
 		" -zmin ", str(args.zmin),
 		" -zmax ", str(args.zmax),
 		" -avmax ", str(args.avmax),
