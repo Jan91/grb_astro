@@ -1,5 +1,16 @@
 #!/usr/bin/env python
 
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument("-red", "--red", dest="red", default="smc")
+parser.add_argument("-zmin", "--zmin", dest="zmin", default=0.0, type=float)
+parser.add_argument("-zmax", "--zmax", dest="zmas", default=4.0, type=float)
+parser.add_argument("-avmax", "--avmax", dest="avmax", default=0.5, type=float)
+parser.add_argument("-ebv", "--ebv", dest="ebv", default=0.00, type=float)
+args = parser.parse_args()
+
+
 seds = open("create_seds.sh", "w")
 
 filter_files = ["GRB_g_relativeLC.txt",
@@ -81,9 +92,13 @@ for filt in range(1, len(t), 1):
 		" -z ", str(g[filt]),
 		" -j ", str(J[filt]),
 		" -h ", str(H[filt]),
-		" -k ", str(K[filt])))
-		seds.write(line)
-		break
+		" -k ", str(K[filt]),
+		" -zmin ", str(args.zmin),
+		" -zmax ", str(args.zmag),
+		" -avmax ", str(args.red),
+		" -ebv ", str(args.red),
+		" -red ", args.red))
+		seds.write(line+"\n")
 	except IndexError:
 		print "line", filt, "has missing magnitudes"
 
