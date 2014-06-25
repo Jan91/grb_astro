@@ -75,7 +75,9 @@ for filt in filter_files:
 
 
 for i in range(1, len(t), 1):
-	line = "grb_z.py -g"+str(g[i])+"\n"
+	line = str()
+	line.join("grb_z.py -g")
+	line.join(str(g[1]))
 	seds.write(line)
 
 
