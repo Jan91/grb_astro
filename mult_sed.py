@@ -74,19 +74,18 @@ for filt in filter_files:
 
 
 for filt in range(1, len(t), 1):
-	while True:
-		try:
-			line = "".join(("grb_z.py -g ", str(g[filt]), 
-			" -r ", str(r[filt]),
-			" -i ", str(i[filt]),
-			" -z ", str(g[filt]),
-			" -j ", str(J[filt]),
-			" -h ", str(H[filt]),
-			" -k ", str(K[filt])))
-			seds.write(line)
-			break
-		except ValueError:
-			print "line", filt, "has missing magnitudes"
+	try:
+		line = "".join(("grb_z.py -g ", str(g[filt]), 
+		" -r ", str(r[filt]),
+		" -i ", str(i[filt]),
+		" -z ", str(g[filt]),
+		" -j ", str(J[filt]),
+		" -h ", str(H[filt]),
+		" -k ", str(K[filt])))
+		seds.write(line)
+		break
+	except IndexError:
+		print "line", filt, "has missing magnitudes"
 
 
 
