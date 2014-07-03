@@ -159,8 +159,8 @@ def SEDPlot():
 	ax1.set_xscale('log')
 	ax1.set_yscale('log')
 	ax1.set_xlim([2e-4, 10.1])
-	ax1.set_xlabel(r"$Energy\, [keV]$", fontsize=18)
-	ax1.set_ylabel(r"$Flux\, [\mu Jy]$", fontsize=18)
+	ax1.set_xlabel(r"$\rm Energy\, [keV]$", fontsize=18)
+	ax1.set_ylabel(r"$\rm Flux\, [\mu Jy]$", fontsize=18)
 	ax1.errorbar(energy, unfolded_model[0], color=args.color, linestyle="dashed")
 	ax1.errorbar(energy, mc, color=args.color)
 	ax1.errorbar(x, y, xerr=x_err, yerr=y_err, color=args.color, fmt='o', capsize=0, markersize=3)
@@ -170,12 +170,13 @@ def SEDPlot():
 
 	ax2 = ax1.twinx()
 	ax2.set_ylim(yconv(y_min_left), yconv(y_max_left))
-	ax2.set_ylabel(r"$AB\, Magnitude\, [mag]$", fontsize=18)
+	ax2.set_ylabel(r"$\rm AB\, Magnitude\, [mag]$", fontsize=18)
+	ax2.set_yticks(range(12, 31, 2))
 
 	ax3 = ax1.twiny()
 	ax3.set_xlim(xconv(x_min_bottom), xconv(x_max_bottom))
 	ax3.set_xscale('log')
-	ax3.set_xlabel(r"$Wavelenght_{\lambda}\, [nm]$", fontsize=18)
+	ax3.set_xlabel(r"$\rm Wavelenght_{\lambda}\, [nm]$", fontsize=18)
 
 	print SEDPlot.__doc__
 	fig.savefig(args.name+".pdf", format="pdf")

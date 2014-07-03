@@ -30,6 +30,7 @@ J, Jerr = [], []
 H, Herr = [], []
 K, Kerr = [], []
 
+
 for filt in filter_files:
 	if "_g_" in filt:
 		f = open(filt, "r")
