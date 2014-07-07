@@ -4,7 +4,7 @@
 Create finding charts
 \tUsage: fc.py #options#
 
-Example:fc_class.py -l MJD 56013.32594 -stars stars.txt -c 246.864417 -29.415000 -t 246.864417 -29.415000 0.0007 "GRB 120327A" -cmap PuBu arcsinh -s 0.02 -b GROND r
+Example:fc_plot.py -l MJD 56013.32594 -stars stars.txt -c 246.864417 -29.415000 -t 246.864417 -29.415000 0.0007 "GRB 120327A" -cmap PuBu arcsinh -s 0.02 -b GROND r
 
 Options:
 \t-f \t "fits file"\t \t \t \tDefault: "r.fits"
