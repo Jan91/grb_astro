@@ -154,8 +154,8 @@ def PLOT_LC():
 	ax4.set_xticklabels([])
 	xlim([xmin, xmax])
 
-	fig.savefig("lightcurve.jpeg")
-	#show()
+	#fig.savefig("lightcurve.jpeg")
+	show()
 
 
 if __name__ == "__main__":
